@@ -1,0 +1,24 @@
+image:
+  name: registry.gitlab.com/nopsteam/nops-ci-baseimage:debian-1.0
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+stages:
+  - test
+
+test:
+  stage: test
+  script: |
+    # Provision cluster
+    make ci_infra
+
+    # Run tests
+    tilt ci
+
+  except:
+    - merge_requests

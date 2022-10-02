@@ -1,0 +1,11 @@
+primary:
+  extraEnvVars:
+    - name: POSTGRESQL_EXTRA_FLAGS
+      value: "-c fsync=off -c shared_buffers=500MB"
+global:
+  postgresql:
+    auth:
+      database: "localdev"
+      username: "localdev"
+      password: "localdev"
+
