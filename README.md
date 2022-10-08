@@ -4,10 +4,10 @@ This is a PoC about running Django application inside kubernetes.
 
 This appplication would simple upload photo with metadata.
 
-Because K8S pod is stateless. We would use S3 as the service to store actual file. 
-1. Client request API to get secret upload link 
-2. client uploaded image to S3 storage.
-3. client actual save the image with metadata
+Because K8S pod is stateless. We would use Persistent Volume Claims
+
+Photo Image would be kept in case of new pod launch
+
 
 Improvement:
 - We can implement captcha to increase security and prevent flooding.
@@ -31,4 +31,4 @@ Use any k8s cluster provider. This example would be using [k3d](https://k3d.io/)
     make run
 
     # Run HTTP server
-    make devserver
+    make server

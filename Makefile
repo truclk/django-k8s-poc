@@ -20,7 +20,7 @@ exec:
 test:
 	kubectl exec -n upload-service -it deploy/upload-service -- pytest -n 4
 
-devserver:
+server:
 	kubectl exec -n upload-service -it deploy/upload-service -- python3 main.py
 
 install_precommit:

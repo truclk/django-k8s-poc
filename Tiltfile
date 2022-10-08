@@ -4,6 +4,9 @@ service_name = "upload-service"
 
 load("ext://helm_remote", "helm_remote")
 load('ext://syncback', 'syncback')
+load('ext://helm_resource', 'helm_resource', 'helm_repo')
+
+
 
 
 helm_remote(
@@ -42,7 +45,7 @@ test(
     "make test",
     deps=["./upload_project/"],
     trigger_mode=TRIGGER_MODE_MANUAL,
-    resource_deps=[service_name, "postgresql"],
+    #resource_deps=[service_name, "postgresql"],
 )
 
 # # Setup prometheus

@@ -13,14 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from django.urls import re_path
 
 from rest_framework_nested import routers
 
 from upload_project.views import PhotoViewSet
-from upload_project.views import UploadSignS3ViewSet
+from upload_project.views import index
+from upload_project.views import photo_image_view
+from upload_project.views import success
 
 app_name = "upload_project"
 
@@ -28,7 +31,11 @@ app_name = "upload_project"
 router = routers.SimpleRouter()
 router.register(r"photo", PhotoViewSet, basename="photo")
 urlpatterns = [
+    path("", index, name="index"),
+    path("upload/", photo_image_view, name="photo_image_view"),
+    path("success", success, name="success"),
     path("admin/", admin.site.urls),
-    re_path(r"upload/sign_s3", UploadSignS3ViewSet.as_view(), name="upload_sign_s3"),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 urlpatterns += router.urls
